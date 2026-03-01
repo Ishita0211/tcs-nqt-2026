@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCS NQT 2026 — Study Material</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --accent: #00e5ff;
+    --accent2: #7c3aed;
+    --accent3: #10b981;
+    --accent4: #f59e0b;
+    --accent5: #ef4444;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: rgba(255,255,255,0.07);
+    --glow: 0 0 30px rgba(0,229,255,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 20% 20%, rgba(124,58,237,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(0,229,255,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(16,185,129,0.04) 0%, transparent 60%);
+    animation: bgPulse 8s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes bgPulse {
+    0% { transform: scale(1) rotate(0deg); }
+    100% { transform: scale(1.05) rotate(2deg); }
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    z-index: 10;
+    padding: 60px 40px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .exam-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(124,58,237,0.15));
+    border: 1px solid rgba(0,229,255,0.3);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    padding: 6px 16px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: fadeDown 0.5s ease;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    animation: fadeDown 0.6s ease 0.1s both;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 1.1rem;
+    font-weight: 300;
+    animation: fadeDown 0.6s ease 0.2s both;
+  }
+
+  .countdown-bar {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 30px;
+    animation: fadeDown 0.6s ease 0.3s both;
+  }
+
+  .count-item {
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 16px 24px;
+    border-radius: 8px;
+    min-width: 80px;
+  }
+
+  .count-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent);
+    display: block;
+  }
+
+  .count-label {
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* NAV TABS */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,14,26,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 16px 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .tab-btn:hover { color: var(--text); }
+
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* MAIN CONTENT */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; animation: fadeIn 0.4s ease; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SECTION HEADER */
+  .sec-header {
+    margin-bottom: 32px;
+  }
+
+  .sec-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .sec-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    border-color: rgba(0,229,255,0.2);
+    box-shadow: var(--glow);
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .badge-cyan { background: rgba(0,229,255,0.15); color: var(--accent); border: 1px solid rgba(0,229,255,0.3); }
+  .badge-purple { background: rgba(124,58,237,0.15); color: #a78bfa; border: 1px solid rgba(124,58,237,0.3); }
+  .badge-green { background: rgba(16,185,129,0.15); color: var(--accent3); border: 1px solid rgba(16,185,129,0.3); }
+  .badge-amber { background: rgba(245,158,11,0.15); color: var(--accent4); border: 1px solid rgba(245,158,11,0.3); }
+  .badge-red { background: rgba(239,68,68,0.15); color: var(--accent5); border: 1px solid rgba(239,68,68,0.3); }
+
+  /* CODE BLOCKS */
+  pre {
+    background: #0d1117;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 20px;
+    overflow-x: auto;
+    margin: 14px 0;
+    position: relative;
+  }
+
+  pre code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.8;
+    color: #e2e8f0;
+  }
+
+  .kw { color: #ff79c6; }
+  .fn { color: #50fa7b; }
+  .st { color: #f1fa8c; }
+  .cm { color: #6272a4; font-style: italic; }
+  .nm { color: #bd93f9; }
+  .op { color: #ff79c6; }
+  .bi { color: #8be9fd; }
+
+  /* Copy button */
+  .code-wrap { position: relative; }
+  .copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 1px;
+  }
+  .copy-btn:hover { background: rgba(0,229,255,0.1); color: var(--accent); }
+
+  /* TOPIC LIST */
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .topic-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .topic-item:hover {
+    border-color: rgba(0,229,255,0.3);
+    background: rgba(0,229,255,0.05);
+    transform: translateX(3px);
+  }
+
+  .topic-icon { font-size: 1.1rem; }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .checklist li:last-child { border-bottom: none; }
+
+  .check-box {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--muted);
+    border-radius: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .check-box.checked {
+    background: var(--accent3);
+    border-color: var(--accent3);
+  }
+
+  .check-box.checked::after {
+    content: '✓';
+    color: #000;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  /* GRID LAYOUT */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* INFO BOX */
+  .info-box {
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .info-box.tip { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); color: #6ee7b7; }
+  .info-box.warn { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); color: #fcd34d; }
+  .info-box.note { background: rgba(0,229,255,0.06); border: 1px solid rgba(0,229,255,0.15); color: #67e8f9; }
+
+  /* PROGRESS */
+  .progress-wrap { margin: 8px 0 4px; }
+  .progress-bar {
+    height: 4px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: width 0.5s ease;
+  }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th {
+    background: var(--surface2);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    line-height: 1.5;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* DAY TIMELINE */
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent2));
+    border-radius: 2px;
+  }
+
+  .day-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .day-dot {
+    position: absolute;
+    left: -26px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 8px rgba(0,229,255,0.5);
+  }
+
+  .day-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    transition: border-color 0.2s;
+  }
+
+  .day-card:hover { border-color: rgba(0,229,255,0.2); }
+
+  .day-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+
+  .day-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .day-tasks { list-style: none; }
+  .day-tasks li {
+    font-size: 0.87rem;
+    color: var(--muted);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+  }
+  .day-tasks li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+
+  /* PILL TAGS */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  /* COMPLEXITY TABLE */
+  .complexity-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .O1 { background: rgba(16,185,129,0.15); color: var(--accent3); }
+  .Ologn { background: rgba(0,229,255,0.12); color: var(--accent); }
+  .On { background: rgba(245,158,11,0.12); color: var(--accent4); }
+  .On2 { background: rgba(239,68,68,0.12); color: var(--accent5); }
+
+  /* QUIZ */
+  .quiz-q {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .quiz-q .question {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+
+  .quiz-opt {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 0.87rem;
+    transition: all 0.2s;
+    font-family: 'JetBrains Mono', monospace;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .quiz-opt:hover { border-color: rgba(0,229,255,0.3); background: rgba(0,229,255,0.05); }
+  .quiz-opt.correct { border-color: var(--accent3); background: rgba(16,185,129,0.1); color: #6ee7b7; }
+  .quiz-opt.wrong { border-color: var(--accent5); background: rgba(239,68,68,0.1); color: #fca5a5; }
+
+  .opt-label {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  .quiz-explanation {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: rgba(16,185,129,0.07);
+    border: 1px solid rgba(16,185,129,0.2);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: #6ee7b7;
+    display: none;
+  }
+
+  .quiz-explanation.show { display: block; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="exam-badge">TCS NQT 2026 — 11 LPA Digital Track</div>
+  <h1>Complete Study Material</h1>
+  <p class="subtitle">Python · DSA · Aptitude · Strategy — Everything you need in one place</p>
+  <div class="countdown-bar">
+    <div class="count-item"><span class="count-num" id="days">9</span><span class="count-label">Days Left</span></div>
+    <div class="count-item"><span class="count-num">2</span><span class="count-label">Coding Qs</span></div>
+    <div class="count-item"><span class="count-num">90</span><span class="count-label">Mins Coding</span></div>
+    <div class="count-item"><span class="count-num">11</span><span class="count-label">LPA Target</span></div>
+  </div>
+</header>
+
+<nav>
+  <button class="tab-btn active" onclick="showTab('plan')">📅 9-Day Plan</button>
+  <button class="tab-btn" onclick="showTab('python')">🐍 Python</button>
+  <button class="tab-btn" onclick="showTab('arrays')">📦 Arrays & Strings</button>
+  <button class="tab-btn" onclick="showTab('trees')">🌳 Trees</button>
+  <button class="tab-btn" onclick="showTab('graphs')">🕸️ Graphs</button>
+  <button class="tab-btn" onclick="showTab('stack')">📚 Stack & Queue</button>
+  <button class="tab-btn" onclick="showTab('aptitude')">🧮 Aptitude</button>
+  <button class="tab-btn" onclick="showTab('strategy')">⚔️ Exam Strategy</button>
+  <button class="tab-btn" onclick="showTab('quiz')">🧠 Quick Quiz</button>
+</nav>
+
+<main>
+
+<!-- ===================== 9-DAY PLAN ===================== -->
+<div id="plan" class="section active">
+  <div class="sec-header">
+    <span class="sec-tag">// schedule</span>
+    <h2 class="sec-title">Your 9-Day Battle Plan</h2>
+  </div>
+
+  <div class="info-box note">
+    <span>📌</span>
+    <span>Exam Date: <strong>10 March 2026</strong>. Target: TCS Digital (11 LPA). Coding section is 2 questions in 90 minutes — this is your differentiator from 7 LPA Ninja track.</span>
+  </div>
+
+  <div class="timeline">
+    <div class="day-item">
+      <div class="day-dot"></div>
+      <div class="day-card">
+        <div class="day-num">Day 1 — March 1</div>
+        <div class="day-title">Python Power-Up</div>
+        <ul class="day-tasks">
+          <li>Master string methods: split, join, strip, replace, count, find, startswith, endswith</li>
+          <li>List methods + list comprehensions with conditions</li>
+          <li>Dictionary tricks — collections.Counter, defaultdict</li>
+          <li>sorted() with key, enumerate(), zip(), map(), filter()</li>
+          <li>Recursion basics — factorial, fibonacci, sum of digits</li>
+          <li>Practice: 5 easy string/array problems on HackerRank</li>
+        </ul>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Strings</span><span class="tag">Built-ins</span></div>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-dot" style="background: #a78bfa;"></div>
+      <div class="day-card">
+        <div class="day-num">Day 2 — March 2</div>
+        <div class="day-title">Arrays & Strings DSA</div>
+        <ul class="day-tasks">
+          <li>Sliding window pattern — max sum subarray of size k</li>
+          <li>Two pointer — pair sum, remove duplicates, reverse</li>
+          <li>Frequency counting using hashmaps</li>
+          <li>Kadane's Algorithm — maximum subarray sum</li>
+          <li>Practice: 8 LeetCode Easy — Array/String tag</li>
+        </ul>
+        <div class="tags"><span class="tag">Arrays</span><span class="tag">Sliding Window</span><span class="tag">Two Pointer</span><span class="tag">Kadane</span></div>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-dot" style="background: var(--accent3);"></div>
+      <div class="day-card">
+        <div class="day-num">Day 3 — March 3</div>
+        <div class="day-title">Searching, Sorting & Hashing</div>
+        <ul class="day-tasks">
+          <li>Binary Search — master the template, practice on sorted arrays</li>
+          <li>Time complexity: O(n), O(log n), O(n²) — know when each applies</li>
+          <li>Hashing patterns — two sum, find duplicates, most frequent</li>
+          <li>Python sorted() tricks — sort by multiple keys, reverse</li>
+          <li>Practice: 6-8 problems combining these concepts</li>
+        </ul>
+        <div class="tags"><span class="tag">Binary Search</span><span class="tag">Hashing</span><span class="tag">Complexity</span></div>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-dot" style="background: var(--accent4);"></div>
+      <div class="day-card">
+        <div class="day-num">Day 4 — March 4</div>
+        <div class="day-title">Recursion + Stack + Queue</div>
+        <ul class="day-tasks">
+          <li>Recursion: power function, flatten list, generate subsets</li>
+          <li>Stack using list: balanced parentheses, next greater element</li>
+          <li>Queue using collections.deque — understand FIFO vs LIFO</li>
+          <li>Understand call stack in recursion — draw the tree</li>
+          <li>Practice: 5 recursion + 3 stack problems</li>
+        </ul>
+        <div class="tags"><span class="tag">Recursion</span><span class="tag">Stack</span><span class="tag">Queue</span><span class="tag">deque</span></div>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-dot" style="background: var(--accent);"></div>
+      <div class="day-card">
+        <div class="day-num">Day 5 — March 5 ⭐ MOST IMPORTANT</div>
+        <div class="day-title">Trees — Deep Dive</div>
+        <ul class="day-tasks">
+          <li>Binary Tree class creation in Python</li>
+          <li>Inorder, Preorder, Postorder traversals (recursive)</li>
+          <li>Level order traversal using queue (BFS on tree)</li>
+          <li>Height of tree, count nodes, count leaf nodes</li>
+          <li>Check if two trees are identical</li>
+          <li>Practice: 8 tree problems on LeetCode (binary-tree tag)</li>
+        </ul>
+        <div class="tags"><span class="tag">Binary Tree</span><span class="tag">BFS</span><span class="tag">DFS</span><span class="tag">Traversals</span></div>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-dot" style="background: var(--accent2);"></div>
+      <div class="day-card">
+        <div class="day-num">Day 6 — March 6</div>
+        <div class="day-title">Graphs — BFS & DFS</div>
+        <ul class="day-tasks">
+          <li>Represent graph with adjacency list using dict</li>
+          <li>BFS using deque — level-by-level, shortest path</li>
+          <li>DFS recursive — mark visited, explore all paths</li>
+          <li>Find if path exists, count connected components</li>
+          <li>Practice: "number of islands", "flood fill", "find path" — 5-6 problems</li>
+        </ul>
+        <div class="tags"><span class="tag">Graph</span><span class="tag">BFS</span><span class="tag">DFS</span><span class="tag">Visited</span></div>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-dot" style="background: var(--accent4);"></div>
+      <div class="day-card">
+        <div class="day-num">Day 7 — March 7</div>
+        <div class="day-title">Advanced Aptitude Sprint</div>
+        <ul class="day-tasks">
+          <li>Permutation & Combination — nCr, nPr formulas</li>
+          <li>Probability basics — favorable/total outcomes</li>
+          <li>Series, sequences, and number patterns</li>
+          <li>Complex arrangement and seating problems</li>
+          <li>30-40 questions on PrepInsta TCS Advanced Quant section</li>
+          <li>Quick Section A revision: verbal + reasoning — 20-25 Qs</li>
+        </ul>
+        <div class="tags"><span class="tag">Quant</span><span class="tag">PnC</span><span class="tag">Probability</span><span class="tag">Reasoning</span></div>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-dot" style="background: var(--accent5);"></div>
+      <div class="day-card">
+        <div class="day-num">Day 8 — March 8</div>
+        <div class="day-title">Full Mock Test + Deep Analysis</div>
+        <ul class="day-tasks">
+          <li>Take full TCS NQT mock on PrepInsta or TCS iON portal — strict timings</li>
+          <li>After test: analyze every wrong answer thoroughly</li>
+          <li>For coding: if stuck, look at approach, then code it yourself</li>
+          <li>Target: solve at least Q1 fully + partial credit on Q2</li>
+          <li>Identify weak areas and spend 2 hours reinforcing them</li>
+        </ul>
+        <div class="tags"><span class="tag">Mock Test</span><span class="tag">Analysis</span><span class="tag">Weak Areas</span></div>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-dot" style="background: var(--accent3);"></div>
+      <div class="day-card">
+        <div class="day-num">Day 9 — March 9 (Day Before Exam)</div>
+        <div class="day-title">Light Revision Only — REST</div>
+        <ul class="day-tasks">
+          <li>Write tree traversal code from memory — once, clean</li>
+          <li>Write BFS and DFS templates from memory</li>
+          <li>Revise Python tricks: Counter, deque, sorted with key</li>
+          <li>10-15 aptitude Qs just to warm up the brain</li>
+          <li>NO new topics. Sleep by 10 PM. Eat well.</li>
+        </ul>
+        <div class="tags"><span class="tag">Revision</span><span class="tag">Rest</span><span class="tag">Mental Prep</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PYTHON ===================== -->
+<div id="python" class="section">
+  <div class="sec-header">
+    <span class="sec-tag">// python essentials</span>
+    <h2 class="sec-title">Python Cheatsheet</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">String Methods <span class="badge badge-cyan">MEMORIZE</span></div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># Most important string operations for TCS NQT</span>
+s = <span class="st">"Hello World"</span>
+
+s.lower()          <span class="cm"># "hello world"</span>
+s.upper()          <span class="cm"># "HELLO WORLD"</span>
+s.strip()          <span class="cm"># remove leading/trailing spaces</span>
+s.split(<span class="st">" "</span>)       <span class="cm"># ["Hello", "World"]</span>
+s.replace(<span class="st">"o"</span>,<span class="st">"0"</span>) <span class="cm"># "Hell0 W0rld"</span>
+s.find(<span class="st">"World"</span>)    <span class="cm"># 6 (index), -1 if not found</span>
+s.count(<span class="st">"l"</span>)       <span class="cm"># 3</span>
+s.startswith(<span class="st">"He"</span>) <span class="cm"># True</span>
+s.endswith(<span class="st">"ld"</span>)   <span class="cm"># True</span>
+s[::-1]            <span class="cm"># "dlroW olleH" — reverse string!</span>
+<span class="st">" "</span>.join([<span class="st">"a"</span>,<span class="st">"b"</span>]) <span class="cm"># "a b"</span>
+s.isdigit()        <span class="cm"># False</span>
+s.isalpha()        <span class="cm"># False (has space)</span>
+
+<span class="cm"># Check if palindrome</span>
+<span class="kw">def</span> <span class="fn">is_palindrome</span>(s):
+    s = s.lower().replace(<span class="st">" "</span>, <span class="st">""</span>)
+    <span class="kw">return</span> s == s[::-1]
+
+<span class="cm"># Check if anagram</span>
+<span class="kw">def</span> <span class="fn">is_anagram</span>(s1, s2):
+    <span class="kw">from</span> <span class="bi">collections</span> <span class="kw">import</span> <span class="bi">Counter</span>
+    <span class="kw">return</span> <span class="bi">Counter</span>(s1.lower()) == <span class="bi">Counter</span>(s2.lower())</code></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">List & Dictionary Power Moves <span class="badge badge-purple">MUST KNOW</span></div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># List comprehensions — super useful</span>
+squares = [x**<span class="nm">2</span> <span class="kw">for</span> x <span class="kw">in</span> <span class="bi">range</span>(<span class="nm">10</span>)]
+evens   = [x <span class="kw">for</span> x <span class="kw">in</span> <span class="bi">range</span>(<span class="nm">20</span>) <span class="kw">if</span> x % <span class="nm">2</span> == <span class="nm">0</span>]
+flat    = [x <span class="kw">for</span> row <span class="kw">in</span> matrix <span class="kw">for</span> x <span class="kw">in</span> row]
+
+<span class="cm"># Sorting tricks</span>
+words = [<span class="st">"banana"</span>, <span class="st">"apple"</span>, <span class="st">"cherry"</span>]
+sorted(words)                       <span class="cm"># alphabetical</span>
+sorted(words, key=<span class="bi">len</span>)             <span class="cm"># by length</span>
+sorted(words, key=<span class="kw">lambda</span> x: x[-<span class="nm">1</span>]) <span class="cm"># by last char</span>
+sorted(words, reverse=<span class="kw">True</span>)        <span class="cm"># descending</span>
+
+<span class="cm"># Counter — frequency of elements</span>
+<span class="kw">from</span> <span class="bi">collections</span> <span class="kw">import</span> <span class="bi">Counter</span>
+cnt = <span class="bi">Counter</span>(<span class="st">"abracadabra"</span>)
+<span class="cm"># Counter({'a': 5, 'b': 2, 'r': 2, 'c': 1, 'd': 1})</span>
+cnt.most_common(<span class="nm">2</span>)  <span class="cm"># [('a',5), ('b',2)]</span>
+
+<span class="cm"># defaultdict — avoids KeyError</span>
+<span class="kw">from</span> <span class="bi">collections</span> <span class="kw">import</span> <span class="bi">defaultdict</span>
+d = <span class="bi">defaultdict</span>(<span class="bi">list</span>)
+d[<span class="st">"fruits"</span>].append(<span class="st">"apple"</span>)  <span class="cm"># no error</span>
+
+<span class="cm"># enumerate and zip</span>
+<span class="kw">for</span> i, val <span class="kw">in</span> <span class="bi">enumerate</span>([<span class="st">'a'</span>,<span class="st">'b'</span>,<span class="st">'c'</span>]):
+    <span class="bi">print</span>(i, val)  <span class="cm"># 0 a, 1 b, 2 c</span>
+
+<span class="kw">for</span> a, b <span class="kw">in</span> <span class="bi">zip</span>([<span class="nm">1</span>,<span class="nm">2</span>,<span class="nm">3</span>], [<span class="st">'x'</span>,<span class="st">'y'</span>,<span class="st">'z'</span>]):
+    <span class="bi">print</span>(a, b)   <span class="cm"># 1 x, 2 y, 3 z</span></code></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Recursion Templates <span class="badge badge-green">KEY PATTERNS</span></div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># RULE: Every recursive function needs a BASE CASE!</span>
+
+<span class="cm"># Factorial</span>
+<span class="kw">def</span> <span class="fn">factorial</span>(n):
+    <span class="kw">if</span> n <= <span class="nm">1</span>: <span class="kw">return</span> <span class="nm">1</span>    <span class="cm"># base case</span>
+    <span class="kw">return</span> n * <span class="fn">factorial</span>(n-<span class="nm">1</span>)
+
+<span class="cm"># Fibonacci</span>
+<span class="kw">def</span> <span class="fn">fib</span>(n):
+    <span class="kw">if</span> n <= <span class="nm">1</span>: <span class="kw">return</span> n
+    <span class="kw">return</span> <span class="fn">fib</span>(n-<span class="nm">1</span>) + <span class="fn">fib</span>(n-<span class="nm">2</span>)
+
+<span class="cm"># Sum of digits</span>
+<span class="kw">def</span> <span class="fn">digit_sum</span>(n):
+    <span class="kw">if</span> n < <span class="nm">10</span>: <span class="kw">return</span> n
+    <span class="kw">return</span> n % <span class="nm">10</span> + <span class="fn">digit_sum</span>(n // <span class="nm">10</span>)
+
+<span class="cm"># Power function</span>
+<span class="kw">def</span> <span class="fn">power</span>(base, exp):
+    <span class="kw">if</span> exp == <span class="nm">0</span>: <span class="kw">return</span> <span class="nm">1</span>
+    <span class="kw">return</span> base * <span class="fn">power</span>(base, exp-<span class="nm">1</span>)
+
+<span class="cm"># Binary search (recursive)</span>
+<span class="kw">def</span> <span class="fn">binary_search</span>(arr, target, lo, hi):
+    <span class="kw">if</span> lo > hi: <span class="kw">return</span> -<span class="nm">1</span>
+    mid = (lo + hi) // <span class="nm">2</span>
+    <span class="kw">if</span> arr[mid] == target: <span class="kw">return</span> mid
+    <span class="kw">elif</span> arr[mid] < target: <span class="kw">return</span> <span class="fn">binary_search</span>(arr, target, mid+<span class="nm">1</span>, hi)
+    <span class="kw">else</span>: <span class="kw">return</span> <span class="fn">binary_search</span>(arr, target, lo, mid-<span class="nm">1</span>)</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== ARRAYS ===================== -->
+<div id="arrays" class="section">
+  <div class="sec-header">
+    <span class="sec-tag">// dsa - arrays & strings</span>
+    <h2 class="sec-title">Arrays & Strings</h2>
+  </div>
+
+  <div class="info-box tip">
+    <span>💡</span>
+    <span>Arrays + Strings together cover ~40% of TCS coding questions. Master these 4 patterns and you'll handle most problems.</span>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Pattern 1: Sliding Window <span class="badge badge-cyan">HIGH PRIORITY</span></div>
+    <p style="font-size:0.9rem; color:var(--muted); margin-bottom:14px;">Use when asked about subarrays/substrings of fixed or variable size.</p>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># Max sum subarray of size k</span>
+<span class="kw">def</span> <span class="fn">max_sum_subarray</span>(arr, k):
+    n = <span class="bi">len</span>(arr)
+    window_sum = <span class="bi">sum</span>(arr[:k])
+    max_sum = window_sum
+
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(k, n):
+        window_sum += arr[i] - arr[i-k]  <span class="cm"># slide window</span>
+        max_sum = <span class="bi">max</span>(max_sum, window_sum)
+
+    <span class="kw">return</span> max_sum
+
+<span class="cm"># Test: max_sum_subarray([2,1,5,1,3,2], 3) → 9</span>
+
+<span class="cm"># Longest substring without repeating characters</span>
+<span class="kw">def</span> <span class="fn">longest_unique_substr</span>(s):
+    seen = {}
+    left = max_len = <span class="nm">0</span>
+
+    <span class="kw">for</span> right, ch <span class="kw">in</span> <span class="bi">enumerate</span>(s):
+        <span class="kw">if</span> ch <span class="kw">in</span> seen <span class="kw">and</span> seen[ch] >= left:
+            left = seen[ch] + <span class="nm">1</span>
+        seen[ch] = right
+        max_len = <span class="bi">max</span>(max_len, right - left + <span class="nm">1</span>)
+
+    <span class="kw">return</span> max_len</code></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Pattern 2: Two Pointers <span class="badge badge-cyan">HIGH PRIORITY</span></div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># Two sum in SORTED array</span>
+<span class="kw">def</span> <span class="fn">two_sum_sorted</span>(arr, target):
+    left, right = <span class="nm">0</span>, <span class="bi">len</span>(arr) - <span class="nm">1</span>
+    <span class="kw">while</span> left < right:
+        curr = arr[left] + arr[right]
+        <span class="kw">if</span> curr == target: <span class="kw">return</span> [left, right]
+        <span class="kw">elif</span> curr < target: left += <span class="nm">1</span>
+        <span class="kw">else</span>: right -= <span class="nm">1</span>
+    <span class="kw">return</span> []
+
+<span class="cm"># Remove duplicates from sorted array (in-place)</span>
+<span class="kw">def</span> <span class="fn">remove_duplicates</span>(arr):
+    <span class="kw">if not</span> arr: <span class="kw">return</span> <span class="nm">0</span>
+    slow = <span class="nm">0</span>
+    <span class="kw">for</span> fast <span class="kw">in</span> <span class="bi">range</span>(<span class="nm">1</span>, <span class="bi">len</span>(arr)):
+        <span class="kw">if</span> arr[fast] != arr[slow]:
+            slow += <span class="nm">1</span>
+            arr[slow] = arr[fast]
+    <span class="kw">return</span> slow + <span class="nm">1</span>
+
+<span class="cm"># Check if string is palindrome</span>
+<span class="kw">def</span> <span class="fn">is_palindrome</span>(s):
+    left, right = <span class="nm">0</span>, <span class="bi">len</span>(s) - <span class="nm">1</span>
+    <span class="kw">while</span> left < right:
+        <span class="kw">if</span> s[left] != s[right]: <span class="kw">return</span> <span class="kw">False</span>
+        left += <span class="nm">1</span>; right -= <span class="nm">1</span>
+    <span class="kw">return</span> <span class="kw">True</span></code></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Pattern 3: Kadane's Algorithm <span class="badge badge-amber">MUST KNOW</span></div>
+    <p style="font-size:0.9rem; color:var(--muted); margin-bottom:14px;">Maximum subarray sum — classic TCS question.</p>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="kw">def</span> <span class="fn">max_subarray_sum</span>(arr):
+    max_so_far = arr[<span class="nm">0</span>]
+    curr_max = arr[<span class="nm">0</span>]
+
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(<span class="nm">1</span>, <span class="bi">len</span>(arr)):
+        <span class="cm"># Either extend current subarray or start fresh</span>
+        curr_max = <span class="bi">max</span>(arr[i], curr_max + arr[i])
+        max_so_far = <span class="bi">max</span>(max_so_far, curr_max)
+
+    <span class="kw">return</span> max_so_far
+
+<span class="cm"># Test: max_subarray_sum([-2,1,-3,4,-1,2,1,-5,4]) → 6</span>
+<span class="cm"># Subarray: [4, -1, 2, 1]</span></code></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Pattern 4: Hashing / Frequency Count <span class="badge badge-purple">VERY USEFUL</span></div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># Two Sum (unsorted) — O(n) using hashmap</span>
+<span class="kw">def</span> <span class="fn">two_sum</span>(nums, target):
+    seen = {}
+    <span class="kw">for</span> i, num <span class="kw">in</span> <span class="bi">enumerate</span>(nums):
+        complement = target - num
+        <span class="kw">if</span> complement <span class="kw">in</span> seen:
+            <span class="kw">return</span> [seen[complement], i]
+        seen[num] = i
+
+<span class="cm"># Find first non-repeating character</span>
+<span class="kw">def</span> <span class="fn">first_unique</span>(s):
+    <span class="kw">from</span> <span class="bi">collections</span> <span class="kw">import</span> <span class="bi">Counter</span>
+    cnt = <span class="bi">Counter</span>(s)
+    <span class="kw">for</span> i, ch <span class="kw">in</span> <span class="bi">enumerate</span>(s):
+        <span class="kw">if</span> cnt[ch] == <span class="nm">1</span>: <span class="kw">return</span> i
+    <span class="kw">return</span> -<span class="nm">1</span>
+
+<span class="cm"># Group anagrams together</span>
+<span class="kw">def</span> <span class="fn">group_anagrams</span>(words):
+    <span class="kw">from</span> <span class="bi">collections</span> <span class="kw">import</span> <span class="bi">defaultdict</span>
+    groups = <span class="bi">defaultdict</span>(<span class="bi">list</span>)
+    <span class="kw">for</span> w <span class="kw">in</span> words:
+        key = <span class="st">""</span>.join(sorted(w))  <span class="cm"># sorted chars as key</span>
+        groups[key].append(w)
+    <span class="kw">return</span> <span class="bi">list</span>(groups.values())</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TREES ===================== -->
+<div id="trees" class="section">
+  <div class="sec-header">
+    <span class="sec-tag">// dsa - trees</span>
+    <h2 class="sec-title">Trees 🌳</h2>
+  </div>
+
+  <div class="info-box warn">
+    <span>⭐</span>
+    <span>Trees are the #1 most important DSA topic for TCS Digital Advanced Coding. If you only have time for one DSA topic — make it this.</span>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Tree Node Class + Basic Setup <span class="badge badge-cyan">START HERE</span></div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># Always start with this class</span>
+<span class="kw">class</span> <span class="fn">TreeNode</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, val=<span class="nm">0</span>):
+        self.val = val
+        self.left = <span class="kw">None</span>
+        self.right = <span class="kw">None</span>
+
+<span class="cm"># Build this tree manually:</span>
+<span class="cm">#       1</span>
+<span class="cm">#      / \</span>
+<span class="cm">#     2   3</span>
+<span class="cm">#    / \</span>
+<span class="cm">#   4   5</span>
+
+root = <span class="fn">TreeNode</span>(<span class="nm">1</span>)
+root.left  = <span class="fn">TreeNode</span>(<span class="nm">2</span>)
+root.right = <span class="fn">TreeNode</span>(<span class="nm">3</span>)
+root.left.left  = <span class="fn">TreeNode</span>(<span class="nm">4</span>)
+root.left.right = <span class="fn">TreeNode</span>(<span class="nm">5</span>)</code></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">All 4 Traversals <span class="badge badge-red">MEMORIZE ALL</span></div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># INORDER: Left → Root → Right  (gives sorted order for BST!)</span>
+<span class="kw">def</span> <span class="fn">inorder</span>(root):
+    <span class="kw">if not</span> root: <span class="kw">return</span> []
+    <span class="kw">return</span> <span class="fn">inorder</span>(root.left) + [root.val] + <span class="fn">inorder</span>(root.right)
+
+<span class="cm"># PREORDER: Root → Left → Right  (used for tree copying)</span>
+<span class="kw">def</span> <span class="fn">preorder</span>(root):
+    <span class="kw">if not</span> root: <span class="kw">return</span> []
+    <span class="kw">return</span> [root.val] + <span class="fn">preorder</span>(root.left) + <span class="fn">preorder</span>(root.right)
+
+<span class="cm"># POSTORDER: Left → Right → Root  (used for tree deletion)</span>
+<span class="kw">def</span> <span class="fn">postorder</span>(root):
+    <span class="kw">if not</span> root: <span class="kw">return</span> []
+    <span class="kw">return</span> <span class="fn">postorder</span>(root.left) + <span class="fn">postorder</span>(root.right) + [root.val]
+
+<span class="cm"># LEVEL ORDER (BFS): Level by level using queue</span>
+<span class="kw">from</span> <span class="bi">collections</span> <span class="kw">import</span> <span class="bi">deque</span>
+<span class="kw">def</span> <span class="fn">level_order</span>(root):
+    <span class="kw">if not</span> root: <span class="kw">return</span> []
+    result, queue = [], <span class="bi">deque</span>([root])
+    <span class="kw">while</span> queue:
+        level = []
+        <span class="kw">for</span> _ <span class="kw">in</span> <span class="bi">range</span>(<span class="bi">len</span>(queue)):  <span class="cm"># process one level</span>
+            node = queue.popleft()
+            level.append(node.val)
+            <span class="kw">if</span> node.left:  queue.append(node.left)
+            <span class="kw">if</span> node.right: queue.append(node.right)
+        result.append(level)
+    <span class="kw">return</span> result
+<span class="cm"># Output for above tree: [[1], [2, 3], [4, 5]]</span></code></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Essential Tree Functions <span class="badge badge-green">PRACTICE THESE</span></div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># Height of tree (max depth)</span>
+<span class="kw">def</span> <span class="fn">height</span>(root):
+    <span class="kw">if not</span> root: <span class="kw">return</span> <span class="nm">0</span>
+    <span class="kw">return</span> <span class="nm">1</span> + <span class="bi">max</span>(<span class="fn">height</span>(root.left), <span class="fn">height</span>(root.right))
+
+<span class="cm"># Count total nodes</span>
+<span class="kw">def</span> <span class="fn">count_nodes</span>(root):
+    <span class="kw">if not</span> root: <span class="kw">return</span> <span class="nm">0</span>
+    <span class="kw">return</span> <span class="nm">1</span> + <span class="fn">count_nodes</span>(root.left) + <span class="fn">count_nodes</span>(root.right)
+
+<span class="cm"># Count leaf nodes (nodes with no children)</span>
+<span class="kw">def</span> <span class="fn">count_leaves</span>(root):
+    <span class="kw">if not</span> root: <span class="kw">return</span> <span class="nm">0</span>
+    <span class="kw">if not</span> root.left <span class="kw">and not</span> root.right: <span class="kw">return</span> <span class="nm">1</span>
+    <span class="kw">return</span> <span class="fn">count_leaves</span>(root.left) + <span class="fn">count_leaves</span>(root.right)
+
+<span class="cm"># Check if two trees are identical</span>
+<span class="kw">def</span> <span class="fn">is_same</span>(p, q):
+    <span class="kw">if not</span> p <span class="kw">and not</span> q: <span class="kw">return</span> <span class="kw">True</span>
+    <span class="kw">if not</span> p <span class="kw">or not</span> q: <span class="kw">return</span> <span class="kw">False</span>
+    <span class="kw">return</span> (p.val == q.val <span class="kw">and</span>
+            <span class="fn">is_same</span>(p.left, q.left) <span class="kw">and</span>
+            <span class="fn">is_same</span>(p.right, q.right))
+
+<span class="cm"># Max sum path (root to leaf)</span>
+<span class="kw">def</span> <span class="fn">max_path_sum</span>(root):
+    <span class="kw">if not</span> root: <span class="kw">return</span> <span class="nm">0</span>
+    left  = <span class="fn">max_path_sum</span>(root.left)
+    right = <span class="fn">max_path_sum</span>(root.right)
+    <span class="kw">return</span> root.val + <span class="bi">max</span>(left, right)</code></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Binary Search Tree (BST) Operations <span class="badge badge-amber">BONUS</span></div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># Search in BST — O(log n) average</span>
+<span class="kw">def</span> <span class="fn">search_bst</span>(root, val):
+    <span class="kw">if not</span> root <span class="kw">or</span> root.val == val: <span class="kw">return</span> root
+    <span class="kw">if</span> val < root.val: <span class="kw">return</span> <span class="fn">search_bst</span>(root.left, val)
+    <span class="kw">return</span> <span class="fn">search_bst</span>(root.right, val)
+
+<span class="cm"># Insert in BST</span>
+<span class="kw">def</span> <span class="fn">insert_bst</span>(root, val):
+    <span class="kw">if not</span> root: <span class="kw">return</span> <span class="fn">TreeNode</span>(val)
+    <span class="kw">if</span> val < root.val: root.left = <span class="fn">insert_bst</span>(root.left, val)
+    <span class="kw">else</span>: root.right = <span class="fn">insert_bst</span>(root.right, val)
+    <span class="kw">return</span> root
+
+<span class="cm"># Validate if tree is a valid BST</span>
+<span class="kw">def</span> <span class="fn">is_valid_bst</span>(root, lo=<span class="bi">float</span>(<span class="st">'-inf'</span>), hi=<span class="bi">float</span>(<span class="st">'inf'</span>)):
+    <span class="kw">if not</span> root: <span class="kw">return</span> <span class="kw">True</span>
+    <span class="kw">if not</span> (lo < root.val < hi): <span class="kw">return</span> <span class="kw">False</span>
+    <span class="kw">return</span> (<span class="fn">is_valid_bst</span>(root.left, lo, root.val) <span class="kw">and</span>
+            <span class="fn">is_valid_bst</span>(root.right, root.val, hi))</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== GRAPHS ===================== -->
+<div id="graphs" class="section">
+  <div class="sec-header">
+    <span class="sec-tag">// dsa - graphs</span>
+    <h2 class="sec-title">Graphs 🕸️</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Graph Representation <span class="badge badge-cyan">FOUNDATION</span></div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># Adjacency List — most common in Python</span>
+<span class="cm"># Graph:  1 -- 2 -- 4</span>
+<span class="cm">#         |    |</span>
+<span class="cm">#         3 ---+</span>
+
+graph = {
+    <span class="nm">1</span>: [<span class="nm">2</span>, <span class="nm">3</span>],
+    <span class="nm">2</span>: [<span class="nm">1</span>, <span class="nm">3</span>, <span class="nm">4</span>],
+    <span class="nm">3</span>: [<span class="nm">1</span>, <span class="nm">2</span>],
+    <span class="nm">4</span>: [<span class="nm">2</span>]
+}
+
+<span class="cm"># Build graph from edge list</span>
+<span class="kw">from</span> <span class="bi">collections</span> <span class="kw">import</span> <span class="bi">defaultdict</span>
+
+<span class="kw">def</span> <span class="fn">build_graph</span>(edges, directed=<span class="kw">False</span>):
+    graph = <span class="bi">defaultdict</span>(<span class="bi">list</span>)
+    <span class="kw">for</span> u, v <span class="kw">in</span> edges:
+        graph[u].append(v)
+        <span class="kw">if not</span> directed:
+            graph[v].append(u)
+    <span class="kw">return</span> graph</code></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">BFS — Breadth First Search <span class="badge badge-red">MUST KNOW</span></div>
+    <p style="font-size:0.9rem; color:var(--muted); margin-bottom:14px;">Use for: shortest path, level-by-level traversal, "minimum steps" problems.</p>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="kw">from</span> <span class="bi">collections</span> <span class="kw">import</span> <span class="bi">deque</span>
+
+<span class="kw">def</span> <span class="fn">bfs</span>(graph, start):
+    visited = {start}
+    queue = <span class="bi">deque</span>([start])
+    order = []
+
+    <span class="kw">while</span> queue:
+        node = queue.popleft()
+        order.append(node)
+
+        <span class="kw">for</span> neighbor <span class="kw">in</span> graph[node]:
+            <span class="kw">if</span> neighbor <span class="kw">not in</span> visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+
+    <span class="kw">return</span> order
+
+<span class="cm"># Find shortest path (BFS)</span>
+<span class="kw">def</span> <span class="fn">shortest_path</span>(graph, start, end):
+    visited = {start}
+    queue = <span class="bi">deque</span>([(start, [start])])  <span class="cm"># (node, path)</span>
+
+    <span class="kw">while</span> queue:
+        node, path = queue.popleft()
+        <span class="kw">if</span> node == end: <span class="kw">return</span> path
+
+        <span class="kw">for</span> nb <span class="kw">in</span> graph[node]:
+            <span class="kw">if</span> nb <span class="kw">not in</span> visited:
+                visited.add(nb)
+                queue.append((nb, path + [nb]))
+    <span class="kw">return</span> []</code></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">DFS — Depth First Search <span class="badge badge-red">MUST KNOW</span></div>
+    <p style="font-size:0.9rem; color:var(--muted); margin-bottom:14px;">Use for: exploring all paths, detecting cycles, connected components.</p>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># DFS Recursive</span>
+<span class="kw">def</span> <span class="fn">dfs</span>(graph, node, visited=<span class="kw">None</span>):
+    <span class="kw">if</span> visited <span class="kw">is None</span>: visited = <span class="bi">set</span>()
+    visited.add(node)
+    <span class="bi">print</span>(node)
+    <span class="kw">for</span> neighbor <span class="kw">in</span> graph[node]:
+        <span class="kw">if</span> neighbor <span class="kw">not in</span> visited:
+            <span class="fn">dfs</span>(graph, neighbor, visited)
+
+<span class="cm"># Count connected components</span>
+<span class="kw">def</span> <span class="fn">count_components</span>(n, edges):
+    graph = <span class="bi">defaultdict</span>(<span class="bi">list</span>)
+    <span class="kw">for</span> u, v <span class="kw">in</span> edges:
+        graph[u].append(v)
+        graph[v].append(u)
+
+    visited = <span class="bi">set</span>()
+    count = <span class="nm">0</span>
+
+    <span class="kw">def</span> <span class="fn">explore</span>(node):
+        visited.add(node)
+        <span class="kw">for</span> nb <span class="kw">in</span> graph[node]:
+            <span class="kw">if</span> nb <span class="kw">not in</span> visited:
+                <span class="fn">explore</span>(nb)
+
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(n):
+        <span class="kw">if</span> i <span class="kw">not in</span> visited:
+            <span class="fn">explore</span>(i)
+            count += <span class="nm">1</span>
+    <span class="kw">return</span> count</code></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Number of Islands (Classic Graph Problem) <span class="badge badge-purple">TCS FAVOURITE</span></div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># Grid is a 2D array: '1' = land, '0' = water</span>
+<span class="kw">def</span> <span class="fn">num_islands</span>(grid):
+    <span class="kw">if not</span> grid: <span class="kw">return</span> <span class="nm">0</span>
+    rows, cols = <span class="bi">len</span>(grid), <span class="bi">len</span>(grid[<span class="nm">0</span>])
+    count = <span class="nm">0</span>
+
+    <span class="kw">def</span> <span class="fn">dfs</span>(r, c):
+        <span class="kw">if</span> r < <span class="nm">0</span> <span class="kw">or</span> r >= rows <span class="kw">or</span> c < <span class="nm">0</span> <span class="kw">or</span> c >= cols: <span class="kw">return</span>
+        <span class="kw">if</span> grid[r][c] != <span class="st">'1'</span>: <span class="kw">return</span>
+        grid[r][c] = <span class="st">'#'</span>  <span class="cm"># mark as visited</span>
+        <span class="fn">dfs</span>(r+<span class="nm">1</span>,c); <span class="fn">dfs</span>(r-<span class="nm">1</span>,c); <span class="fn">dfs</span>(r,c+<span class="nm">1</span>); <span class="fn">dfs</span>(r,c-<span class="nm">1</span>)
+
+    <span class="kw">for</span> r <span class="kw">in</span> <span class="bi">range</span>(rows):
+        <span class="kw">for</span> c <span class="kw">in</span> <span class="bi">range</span>(cols):
+            <span class="kw">if</span> grid[r][c] == <span class="st">'1'</span>:
+                <span class="fn">dfs</span>(r, c)
+                count += <span class="nm">1</span>
+    <span class="kw">return</span> count</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== STACK & QUEUE ===================== -->
+<div id="stack" class="section">
+  <div class="sec-header">
+    <span class="sec-tag">// dsa - stack & queue</span>
+    <h2 class="sec-title">Stack & Queue</h2>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Stack <span class="badge badge-cyan">LIFO</span></div>
+      <p style="font-size:0.85rem; color:var(--muted); margin-bottom:12px;">Last In, First Out. Think of a stack of plates.</p>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># Stack using Python list</span>
+stack = []
+stack.append(<span class="nm">1</span>)  <span class="cm"># push</span>
+stack.append(<span class="nm">2</span>)
+stack.append(<span class="nm">3</span>)
+stack.pop()       <span class="cm"># 3 — pop</span>
+stack[-<span class="nm">1</span>]         <span class="cm"># 2 — peek</span>
+<span class="bi">len</span>(stack) == <span class="nm">0</span>   <span class="cm"># is empty?</span>
+
+<span class="cm"># Balanced Parentheses</span>
+<span class="kw">def</span> <span class="fn">is_balanced</span>(s):
+    stack = []
+    pairs = {<span class="st">')'</span>:<span class="st">'('</span>, <span class="st">']'</span>:<span class="st">'['</span>, <span class="st">'}'</span>:<span class="st">'{'</span>}
+    <span class="kw">for</span> ch <span class="kw">in</span> s:
+        <span class="kw">if</span> ch <span class="kw">in</span> <span class="st">'([{'</span>:
+            stack.append(ch)
+        <span class="kw">elif</span> ch <span class="kw">in</span> pairs:
+            <span class="kw">if not</span> stack <span class="kw">or</span> stack[-<span class="nm">1</span>] != pairs[ch]:
+                <span class="kw">return</span> <span class="kw">False</span>
+            stack.pop()
+    <span class="kw">return</span> <span class="bi">len</span>(stack) == <span class="nm">0</span></code></pre>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Queue <span class="badge badge-green">FIFO</span></div>
+      <p style="font-size:0.85rem; color:var(--muted); margin-bottom:12px;">First In, First Out. Think of a line at a ticket counter.</p>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># Queue using collections.deque</span>
+<span class="kw">from</span> <span class="bi">collections</span> <span class="kw">import</span> <span class="bi">deque</span>
+
+q = <span class="bi">deque</span>()
+q.append(<span class="nm">1</span>)    <span class="cm"># enqueue</span>
+q.append(<span class="nm">2</span>)
+q.append(<span class="nm">3</span>)
+q.popleft()     <span class="cm"># 1 — dequeue</span>
+q[<span class="nm">0</span>]            <span class="cm"># 2 — peek front</span>
+
+<span class="cm"># deque also works as a double-ended queue</span>
+q.appendleft(<span class="nm">0</span>)  <span class="cm"># add to front</span>
+q.pop()          <span class="cm"># remove from back</span>
+<span class="cm"># Very useful for sliding window problems!</span></code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Next Greater Element <span class="badge badge-amber">CLASSIC PROBLEM</span></div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># For each element, find the next greater element to its right</span>
+<span class="cm"># [2, 1, 2, 4, 3] → [4, 2, 4, -1, -1]</span>
+<span class="kw">def</span> <span class="fn">next_greater</span>(arr):
+    n = <span class="bi">len</span>(arr)
+    result = [-<span class="nm">1</span>] * n
+    stack = []  <span class="cm"># stores indices</span>
+
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="bi">range</span>(n):
+        <span class="cm"># Pop all elements smaller than current</span>
+        <span class="kw">while</span> stack <span class="kw">and</span> arr[stack[-<span class="nm">1</span>]] < arr[i]:
+            idx = stack.pop()
+            result[idx] = arr[i]
+        stack.append(i)
+
+    <span class="kw">return</span> result</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== APTITUDE ===================== -->
+<div id="aptitude" class="section">
+  <div class="sec-header">
+    <span class="sec-tag">// aptitude & reasoning</span>
+    <h2 class="sec-title">Aptitude Quick Reference</h2>
+  </div>
+
+  <div class="info-box note">
+    <span>📌</span>
+    <span>Section A: 65 questions, 75 mins. Section B Advanced Quant: 15 questions, 25 mins. Speed is everything — aim to spend max 60-90 seconds per question.</span>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Key Formulas — Memorize These <span class="badge badge-red">CRITICAL</span></div>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead><tr><th>Topic</th><th>Formula</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Simple Interest</td><td>SI = P×R×T / 100</td><td>P=1000, R=5%, T=2 → SI=100</td></tr>
+          <tr><td>Compound Interest</td><td>A = P(1 + R/100)ⁿ</td><td>P=1000, R=10%, n=2 → A=1210</td></tr>
+          <tr><td>Profit %</td><td>(SP-CP)/CP × 100</td><td>CP=80, SP=100 → 25%</td></tr>
+          <tr><td>Discount %</td><td>(MP-SP)/MP × 100</td><td>—</td></tr>
+          <tr><td>Speed/Distance</td><td>D = S × T</td><td>60km/h × 2h = 120km</td></tr>
+          <tr><td>Relative Speed (same dir)</td><td>|S₁ - S₂|</td><td>—</td></tr>
+          <tr><td>Relative Speed (opp dir)</td><td>S₁ + S₂</td><td>—</td></tr>
+          <tr><td>Permutation nPr</td><td>n! / (n-r)!</td><td>5P2 = 5×4 = 20</td></tr>
+          <tr><td>Combination nCr</td><td>n! / (r!(n-r)!)</td><td>5C2 = 10</td></tr>
+          <tr><td>Probability</td><td>Favorable / Total</td><td>Die, P(even) = 3/6 = 0.5</td></tr>
+          <tr><td>Average</td><td>Sum / Count</td><td>—</td></tr>
+          <tr><td>LCM × GCD</td><td>= Product of numbers</td><td>LCM(12,8)×GCD(12,8)=96</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Number System Tricks <span class="badge badge-cyan">FAST CALCULATION</span></div>
+    <ul class="checklist">
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Divisibility by 3: sum of digits divisible by 3. Eg: 123 → 1+2+3=6 ✓</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Divisibility by 9: sum of digits divisible by 9</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Divisibility by 11: alternating sum (odd positions - even positions) divisible by 11</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Perfect squares up to 25²: know them cold (1,4,9,16,25,36...625)</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Cubes: 1,8,27,64,125,216,343,512,729,1000</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Powers of 2: 1,2,4,8,16,32,64,128,256,512,1024</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Trick: (a+b)² = a² + 2ab + b². Use this to calculate squares fast: 45² = (40+5)² = 1600+400+25 = 2025</span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Time & Work — Quick Method</div>
+    <div class="info-box tip" style="margin-bottom:14px;">
+      <span>💡</span>
+      <span>Always use the "1 day work = 1/n" approach. If A does work in 10 days, A's 1 day work = 1/10.</span>
+    </div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># A does work in 10 days, B in 15 days. Together?</span>
+<span class="cm"># A's 1-day work = 1/10</span>
+<span class="cm"># B's 1-day work = 1/15</span>
+<span class="cm"># Combined = 1/10 + 1/15 = 3/30 + 2/30 = 5/30 = 1/6</span>
+<span class="cm"># So together they finish in 6 days!</span>
+
+<span class="cm"># Formula: Time together = (A×B)/(A+B)</span>
+<span class="cm"># = (10×15)/(10+15) = 150/25 = 6 ✓</span></code></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Verbal Ability Quick Tips</div>
+    <ul class="checklist">
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Reading Comprehension: Read the question FIRST, then scan the passage. Don't read the full passage unless needed.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Fill in the Blanks: Look for context clues. Eliminate obviously wrong options first.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Error Correction: Check Subject-Verb agreement, Tenses, Articles (a/an/the), Prepositions</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Sentence Completion: The tone of the sentence matters — positive context = positive word</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span>Idioms/Phrases: Practice 20-30 common idioms from IndiaBix Verbal section</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== STRATEGY ===================== -->
+<div id="strategy" class="section">
+  <div class="sec-header">
+    <span class="sec-tag">// exam day</span>
+    <h2 class="sec-title">Exam Strategy</h2>
+  </div>
+
+  <div class="info-box warn">
+    <span>🎯</span>
+    <span>Your goal is TCS Digital (11 LPA). You need to clear Foundation (Section A) comfortably AND perform well on Advanced Coding. The coding section is your differentiator.</span>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Section A — Foundation (75 mins, 65 Qs) <span class="badge badge-amber">Time Per Q: ~70 sec</span></div>
+    <ul class="checklist">
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span><strong>Verbal (25 Qs, 25 min):</strong> Start here. Read question first, scan passage. Don't overthink. Move on if unsure — come back later.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span><strong>Reasoning (20 Qs, 25 min):</strong> Arrangements take time — do them last within this section. Syllogisms and coding-decoding are faster.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span><strong>Quant (20 Qs, 25 min):</strong> Attempt all questions you know instantly first. Mark and revisit tough ones. Never leave a question blank — no negative marking!</span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Section B — Advanced (115 mins) <span class="badge badge-red">11 LPA BATTLEGROUND</span></div>
+    <ul class="checklist">
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span><strong>Advanced Quant (15 Qs, 25 min):</strong> ~100 seconds per question. Skip if taking more than 2 minutes. Don't let this eat into your coding time.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span><strong>Read BOTH coding problems first</strong> before writing any code. Take 5 minutes to understand both.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span><strong>Always write brute force first.</strong> A slow solution that works on 6/10 test cases beats an elegant solution you never finished.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span><strong>Partial scoring exists!</strong> Even if your code fails some test cases, you get marks for the ones it passes. Always submit something.</span></li>
+      <li><div class="check-box" onclick="toggleCheck(this)"></div><span><strong>Time split suggestion:</strong> First 10 min read both + plan. Next 35 min code Q1 fully. Next 40 min code Q2. Last 5 min review + submit.</span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Python Tricks for Speed in the Exam <span class="badge badge-green">USE FREELY</span></div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+<pre><code><span class="cm"># Use these built-ins aggressively — they save time!</span>
+
+<span class="cm"># Instead of manual max finding:</span>
+<span class="bi">max</span>(arr)              <span class="cm"># O(n), one line</span>
+<span class="bi">min</span>(arr)
+<span class="bi">sum</span>(arr)
+<span class="bi">sorted</span>(arr)           <span class="cm"># returns new sorted list</span>
+arr.sort()            <span class="cm"># sorts in-place</span>
+
+<span class="cm"># Instead of manual frequency count:</span>
+<span class="kw">from</span> <span class="bi">collections</span> <span class="kw">import</span> <span class="bi">Counter</span>
+<span class="bi">Counter</span>(arr).most_common(<span class="nm">1</span>)[<span class="nm">0</span>][<span class="nm">0</span>]  <span class="cm"># most frequent element</span>
+
+<span class="cm"># Instead of manual queue operations:</span>
+<span class="kw">from</span> <span class="bi">collections</span> <span class="kw">import</span> <span class="bi">deque</span>
+<span class="cm"># Always use deque for BFS, never list (list.pop(0) is O(n)!)</span>
+
+<span class="cm"># Quick input reading</span>
+n = <span class="bi">int</span>(<span class="bi">input</span>())
+arr = <span class="bi">list</span>(<span class="bi">map</span>(<span class="bi">int</span>, <span class="bi">input</span>().split()))
+
+<span class="cm"># Print on same line</span>
+<span class="bi">print</span>(*arr)            <span class="cm"># prints elements separated by space</span>
+<span class="bi">print</span>(<span class="st">" "</span>.join(<span class="bi">map</span>(<span class="bi">str</span>, arr)))</code></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Time Complexity Reference <span class="badge badge-cyan">KNOW THIS</span></div>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead><tr><th>Algorithm</th><th>Time Complexity</th><th>When to Use</th></tr></thead>
+        <tbody>
+          <tr><td>Linear Search</td><td><span class="complexity-badge On">O(n)</span></td><td>Unsorted array</td></tr>
+          <tr><td>Binary Search</td><td><span class="complexity-badge Ologn">O(log n)</span></td><td>Sorted array only</td></tr>
+          <tr><td>Bubble/Selection Sort</td><td><span class="complexity-badge On2">O(n²)</span></td><td>Small arrays, avoid large</td></tr>
+          <tr><td>Merge/Quick Sort</td><td><span class="complexity-badge Ologn">O(n log n)</span></td><td>General sorting</td></tr>
+          <tr><td>Python sorted()</td><td><span class="complexity-badge Ologn">O(n log n)</span></td><td>Always prefer this</td></tr>
+          <tr><td>Hash lookup/insert</td><td><span class="complexity-badge O1">O(1)</span></td><td>dict, set, Counter</td></tr>
+          <tr><td>Tree traversal (BFS/DFS)</td><td><span class="complexity-badge On">O(n)</span></td><td>All n nodes visited once</td></tr>
+          <tr><td>Kadane's Algorithm</td><td><span class="complexity-badge On">O(n)</span></td><td>Max subarray sum</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Resources to Use <span class="badge badge-amber">BOOKMARK THESE</span></div>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead><tr><th>Resource</th><th>Use For</th><th>Priority</th></tr></thead>
+        <tbody>
+          <tr><td>PrepInsta TCS NQT</td><td>Mock tests, past papers, Advanced Quant</td><td><span class="badge badge-red">HIGH</span></td></tr>
+          <tr><td>LeetCode (Easy/Medium)</td><td>DSA practice — Arrays, Trees, Graphs</td><td><span class="badge badge-red">HIGH</span></td></tr>
+          <tr><td>IndiaBix</td><td>Aptitude, Reasoning, Verbal practice</td><td><span class="badge badge-amber">MEDIUM</span></td></tr>
+          <tr><td>TCS iON Portal</td><td>Official mock if available</td><td><span class="badge badge-red">HIGH</span></td></tr>
+          <tr><td>GeeksforGeeks</td><td>DSA concepts and explanations</td><td><span class="badge badge-amber">MEDIUM</span></td></tr>
+          <tr><td>HackerRank Python</td><td>Python basics practice</td><td><span class="badge badge-green">LOW</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== QUIZ ===================== -->
+<div id="quiz" class="section">
+  <div class="sec-header">
+    <span class="sec-tag">// test yourself</span>
+    <h2 class="sec-title">Quick Knowledge Check</h2>
+  </div>
+
+  <div class="info-box note" style="margin-bottom:24px;">
+    <span>🧠</span>
+    <span>Click an option to check your answer. These are TCS NQT style questions.</span>
+  </div>
+
+  <div class="quiz-q" id="q1">
+    <div class="question">1. What is the output of: <code style="background:rgba(255,255,255,0.07);padding:2px 6px;border-radius:4px;">print(sorted("banana"))</code></div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="checkAnswer(this,'q1','a')"><span class="opt-label">A</span> ['a', 'a', 'a', 'b', 'n', 'n']</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q1','a')"><span class="opt-label">B</span> ['a', 'a', 'a', 'b', 'n', 'n'] → YES it's this one too — which is correct?</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q1','b')"><span class="opt-label">A</span> ['a', 'a', 'a', 'b', 'n', 'n']</div>
+    </div>
+  </div>
+
+  <div class="quiz-q" id="q2">
+    <div class="question">1. What does <code style="background:rgba(255,255,255,0.07);padding:2px 6px;border-radius:4px;">Counter("abracadabra").most_common(1)</code> return?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="checkAnswer(this,'q2','b')"><span class="opt-label">A</span> [('b', 2)]</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q2','a')"><span class="opt-label">B</span> [('a', 5)]</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q2','b')"><span class="opt-label">C</span> {'a': 5}</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q2','b')"><span class="opt-label">D</span> 'a'</div>
+    </div>
+    <div class="quiz-explanation" id="exp-q2">✅ Correct! Counter("abracadabra") gives {'a':5, 'b':2, 'r':2, 'c':1, 'd':1}. most_common(1) returns the top 1 as a list of tuples: [('a', 5)]</div>
+  </div>
+
+  <div class="quiz-q" id="q3">
+    <div class="question">2. Inorder traversal of a BST gives elements in which order?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="checkAnswer(this,'q3','b')"><span class="opt-label">A</span> Random order</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q3','a')"><span class="opt-label">B</span> Sorted ascending order</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q3','b')"><span class="opt-label">C</span> Sorted descending order</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q3','b')"><span class="opt-label">D</span> Level by level</div>
+    </div>
+    <div class="quiz-explanation" id="exp-q3">✅ Correct! Inorder traversal (Left → Root → Right) on a Binary Search Tree always gives nodes in sorted ascending order. This is a key BST property!</div>
+  </div>
+
+  <div class="quiz-q" id="q4">
+    <div class="question">3. What data structure does BFS use internally?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="checkAnswer(this,'q4','b')"><span class="opt-label">A</span> Stack</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q4','a')"><span class="opt-label">B</span> Queue</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q4','b')"><span class="opt-label">C</span> Heap</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q4','b')"><span class="opt-label">D</span> Dictionary</div>
+    </div>
+    <div class="quiz-explanation" id="exp-q4">✅ Correct! BFS (Breadth First Search) uses a Queue (FIFO). DFS uses a Stack (LIFO) — either explicitly or implicitly via the call stack in recursion.</div>
+  </div>
+
+  <div class="quiz-q" id="q5">
+    <div class="question">4. What is the time complexity of Python's built-in sorted() function?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="checkAnswer(this,'q5','b')"><span class="opt-label">A</span> O(n)</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q5','b')"><span class="opt-label">B</span> O(n²)</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q5','a')"><span class="opt-label">C</span> O(n log n)</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q5','b')"><span class="opt-label">D</span> O(log n)</div>
+    </div>
+    <div class="quiz-explanation" id="exp-q5">✅ Correct! Python uses Timsort (hybrid of merge sort + insertion sort), which runs in O(n log n) time. Always prefer Python's built-in sort over implementing your own!</div>
+  </div>
+
+  <div class="quiz-q" id="q6">
+    <div class="question">5. Aptitude: A and B can complete a task in 12 and 18 days. Working together, how many days?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="checkAnswer(this,'q6','b')"><span class="opt-label">A</span> 8 days</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q6','a')"><span class="opt-label">B</span> 7.2 days</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q6','b')"><span class="opt-label">C</span> 6 days</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q6','b')"><span class="opt-label">D</span> 10 days</div>
+    </div>
+    <div class="quiz-explanation" id="exp-q6">✅ Correct! Use formula: (A×B)/(A+B) = (12×18)/(12+18) = 216/30 = 7.2 days. A's daily work = 1/12, B's = 1/18. Together = 1/12 + 1/18 = 3/36 + 2/36 = 5/36. Time = 36/5 = 7.2 days ✓</div>
+  </div>
+
+  <div class="quiz-q" id="q7">
+    <div class="question">6. What is the height of a tree with only the root node?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="checkAnswer(this,'q7','a')"><span class="opt-label">A</span> 1</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q7','b')"><span class="opt-label">B</span> 0</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q7','b')"><span class="opt-label">C</span> -1</div>
+      <div class="quiz-opt" onclick="checkAnswer(this,'q7','b')"><span class="opt-label">D</span> 2</div>
+    </div>
+    <div class="quiz-explanation" id="exp-q7">✅ Correct! A tree with only a root node has height 1 (counting nodes) or height 0 (counting edges). In most TCS problems and the code above, height = 1 for root-only tree since we return 1 + max(left, right) and both sides return 0.</div>
+  </div>
+</div>
+
+</main>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+}
+
+function copyCode(btn) {
+  const pre = btn.nextElementSibling;
+  const text = pre.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'COPIED!';
+    btn.style.color = 'var(--accent3)';
+    setTimeout(() => { btn.textContent = 'COPY'; btn.style.color = ''; }, 2000);
+  });
+}
+
+function checkAnswer(el, qId, type) {
+  const container = document.getElementById(qId);
+  const opts = container.querySelectorAll('.quiz-opt');
+  opts.forEach(o => { o.style.pointerEvents = 'none'; });
+  
+  if (type === 'a') {
+    el.classList.add('correct');
+    const exp = document.getElementById('exp-' + qId);
+    if (exp) exp.classList.add('show');
+  } else {
+    el.classList.add('wrong');
+    // Highlight correct answer
+    opts.forEach(o => {
+      if (o.getAttribute('onclick').includes("'a'")) {
+        o.classList.add('correct');
+      }
+    });
+    const exp = document.getElementById('exp-' + qId);
+    if (exp) exp.classList.add('show');
+  }
+}
+
+// Countdown
+function updateCountdown() {
+  const exam = new Date('2026-03-10T09:00:00');
+  const now = new Date();
+  const diff = exam - now;
+  if (diff > 0) {
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    document.getElementById('days').textContent = days;
+  }
+}
+updateCountdown();
+setInterval(updateCountdown, 60000);
+</script>
+</body>
+</html>
